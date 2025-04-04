@@ -29,7 +29,7 @@ const reset = () => {
 }
 
 // make tick marks
-const drawAxis = (isX = true, start = -10, end = 10) => {
+const drawAxis = (isX = true, start = -15, end = 15) => {
   origin();
 
   ctx.beginPath();
@@ -37,7 +37,7 @@ const drawAxis = (isX = true, start = -10, end = 10) => {
   for (let i = start; i <= end; i++) {
     if (i === 0) continue;
 
-    const finalTick = i % 5 ? 4 : 6;
+    const finalTick = i % 5 ? 3 : 7;
     isX
       ? drawLine([i * scale, -1 * finalTick], [i * scale, finalTick])
       : drawLine([-1 * finalTick, i * scale,], [finalTick, i * scale])
@@ -148,11 +148,17 @@ const coords = { x: 1, y: 1 };
 
 draw();
 
+const updateText = () => {
+  document.querySelector('#current-x').textContent = coords.x;
+  document.querySelector('#current-y').textContent = coords.y;
+}
+
 
 const updateBasisVector = (e) => {
   coords[e.target.dataset.axis] = e.target.value;
   draw();
-  document.querySelector('#current-x').textContent = coords.x;
+  updateText();
+
 }
 
 const handleArrowKeys = (e) => {
@@ -161,6 +167,7 @@ const handleArrowKeys = (e) => {
   if (e.key === 'ArrowUp') coords.y += 1
   if (e.key === 'ArrowDown') coords.y -= 1
   draw();
+  updateText();
 }
 
 document.querySelector('#x-val').addEventListener('input', updateBasisVector);

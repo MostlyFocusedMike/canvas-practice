@@ -13,3 +13,43 @@ canvas {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
 }
+
+#box {
+  position: relative;
+  height: 4rem;
+  width: 4rem;
+  background-color: black;
+}
+
+#tall-white {
+  position: absolute;
+  left: 1rem;
+  height: 4rem;
+  width: 2rem;
+  background-color: white;
+  margin: 0 auto;
+}
+
+#fat-white {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.3rem;
+  height: 3.3rem;
+  width: 3.3rem;
+  background-color: white;
+  margin: 0 auto;
+}
+#matrix {
+  z-index: 100;
+  position: absolute;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0.5rem;
+  width: 50%;
+}
+
+#matrix p {
+  margin: 0;
+  text-align: center;
+}
+
