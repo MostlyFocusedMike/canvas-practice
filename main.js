@@ -93,7 +93,7 @@ const vector = () => {
   drawLine([0, 0], [x * scale, y * scale]);
 
   ctx.stroke();
-  drawTriangle(angle360(0, 0, coords.x, coords.y) * Math.PI / 180, coords.x * scale, coords.y * scale);
+  drawTriangle(coords.x * scale, coords.y * scale, 'blue');
 }
 
 function angle(cx, cy, ex, ey) {
@@ -111,7 +111,8 @@ function angle360(cx, cy, ex, ey) {
 }
 
 // Function to draw the triangle
-function drawTriangle(angle, tipX, tipY) {
+function drawTriangle(tipX, tipY, color) {
+  const angle = angle360(0, 0, tipX, tipY) * Math.PI / 180;
   // Translate to the center
   ctx.translate(tipX, tipY);
 
@@ -120,10 +121,10 @@ function drawTriangle(angle, tipX, tipY) {
 
   // Draw the triangle
   ctx.beginPath();
-  ctx.fillStyle = 'blue'
+  ctx.fillStyle = color;
   ctx.moveTo(2, 0)
-  ctx.lineTo(0 - 0.5 * scale, 0 + 0.3 * scale);
-  ctx.lineTo(0 - 0.5 * scale, 0 - 0.3 * scale);
+  ctx.lineTo(0 - 0.4 * scale, 0 + 0.3 * scale);
+  ctx.lineTo(0 - 0.4 * scale, 0 - 0.3 * scale);
   ctx.closePath();
   ctx.fill();
 
@@ -154,5 +155,15 @@ const updateBasisVector = (e) => {
   document.querySelector('#current-x').textContent = coords.x;
 }
 
+const handleArrowKeys = (e) => {
+  if (e.key === 'ArrowRight') coords.x += 1
+  if (e.key === 'ArrowLeft') coords.x -= 1
+  if (e.key === 'ArrowUp') coords.y += 1
+  if (e.key === 'ArrowDown') coords.y -= 1
+  draw();
+}
+
 document.querySelector('#x-val').addEventListener('input', updateBasisVector);
 document.querySelector('#y-val').addEventListener('input', updateBasisVector);
+
+document.body.addEventListener('keydown', handleArrowKeys)
