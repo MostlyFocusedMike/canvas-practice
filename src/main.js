@@ -1,4 +1,5 @@
 import './style.css'
+import './warp.js'
 
 const canvas = document.querySelector('#my-canvas');
 const width = 500;
@@ -156,27 +157,14 @@ const updateBasisVector = (e) => {
   draw();
 }
 
-const handleArrowKeys = (e) => {
-  const { x, y } = coords
-  if (e.key === 'ArrowRight') coords.x += x < 15 ? 1 : 0;
-  if (e.key === 'ArrowLeft') coords.x -= x > -15 ? 1 : 0;
-  if (e.key === 'ArrowUp') coords.y += y < 15 ? 1 : 0;
-  if (e.key === 'ArrowDown') coords.y -= y > -15 ? 1 : 0;
-  draw();
-}
-
 document.querySelector('#x-val').addEventListener('input', updateBasisVector);
 document.querySelector('#y-val').addEventListener('input', updateBasisVector);
 document.querySelector('#reset').addEventListener('click', () => {
-  coords.x = 1;
-  coords.y = 1;
+  Object.assign(coords, { x: 1, y: 1 });
   document.querySelector('#x-val').value = 1;
   document.querySelector('#y-val').value = 1;
   draw();
 })
-
-// document.body.addEventListener('keydown', handleArrowKeys)
-
 
 draw();
 updateText();
