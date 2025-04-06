@@ -1,7 +1,7 @@
 import './style.css'
 
 const canvas = document.querySelector('#my-canvas');
-const width = 600;
+const width = 500;
 const scale = 15;
 canvas.height = width;
 canvas.width = width;
@@ -77,7 +77,7 @@ const jHat = (y = 1) => {
 
   ctx.beginPath();
   const zeroOffset = seeY !== 0 ? seeY : seeY + 5
-  moveTo(0, zeroOffset, 0);
+  moveTo(0, zeroOffset);
   lineTo(5, zeroOffset + (seeY >= 0 ? -1 : 1) * 5);
   lineTo(-5, zeroOffset + (seeY >= 0 ? -1 : 1) * 5);
 
@@ -106,7 +106,6 @@ function angle(cx, cy, ex, ey) {
 function angle360(cx, cy, ex, ey) {
   var theta = angle(cx, cy, ex, ey); // range (-180, 180]
   if (theta < 0) theta = 360 + theta; // range [0, 360)
-  console.log('theta:', theta);
   return theta;
 }
 
@@ -140,37 +139,44 @@ const draw = () => {
   iHat(coords.x);
   jHat(coords.y);
   vector();
+  updateText();
 }
 
 // application
 const coords = { x: 1, y: 1 };
 
-
-draw();
-
 const updateText = () => {
-  document.querySelector('#current-x').textContent = coords.x;
-  document.querySelector('#current-y').textContent = coords.y;
+  document.querySelectorAll('.current-x').forEach(node => node.textContent = coords.x);
+  document.querySelectorAll('.current-y').forEach(node => node.textContent = coords.y);
 }
 
 
 const updateBasisVector = (e) => {
   coords[e.target.dataset.axis] = e.target.value;
   draw();
-  updateText();
-
 }
 
 const handleArrowKeys = (e) => {
-  if (e.key === 'ArrowRight') coords.x += 1
-  if (e.key === 'ArrowLeft') coords.x -= 1
-  if (e.key === 'ArrowUp') coords.y += 1
-  if (e.key === 'ArrowDown') coords.y -= 1
+  const { x, y } = coords
+  if (e.key === 'ArrowRight') coords.x += x < 15 ? 1 : 0;
+  if (e.key === 'ArrowLeft') coords.x -= x > -15 ? 1 : 0;
+  if (e.key === 'ArrowUp') coords.y += y < 15 ? 1 : 0;
+  if (e.key === 'ArrowDown') coords.y -= y > -15 ? 1 : 0;
   draw();
-  updateText();
 }
 
 document.querySelector('#x-val').addEventListener('input', updateBasisVector);
 document.querySelector('#y-val').addEventListener('input', updateBasisVector);
+document.querySelector('#reset').addEventListener('click', () => {
+  coords.x = 1;
+  coords.y = 1;
+  document.querySelector('#x-val').value = 1;
+  document.querySelector('#y-val').value = 1;
+  draw();
+})
 
-document.body.addEventListener('keydown', handleArrowKeys)
+// document.body.addEventListener('keydown', handleArrowKeys)
+
+
+draw();
+updateText();

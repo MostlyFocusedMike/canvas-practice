@@ -9,24 +9,49 @@
   <body>
     <h1>Canvas Practice</h1>
     <div>
-      <input type="range" id="x-val" value="1" name="xVal" min="-10" max="10" data-axis="x" />
+      <input type="range" id="x-val" value="1" name="xVal" min="-15" max="15" data-axis="x" />
       <label for="x-val">X</label>
     </div>
     <div>
-      <input type="range" id="y-val" value="1" name="yVal" min="-10" max="10" data-axis="y"/>
+      <input type="range" id="y-val" value="1" name="yVal" min="-15" max="15" data-axis="y"/>
       <label for="y-val">Y</label>
     </div>
+    <button id="reset">Reset</button>
 
-    <div id="box">
-      <div id="matrix">
-        <p id="current-x">1</p>
-        <p>0</p>
-        <p>0</p>
-        <p id="current-y">1</p>
+    <div id="main-equation">
+      <p class="current-x">1</p>
+      <div id="holder">
+        <p class="bracket">[</p>
+        <div class="matrix">
+          <p>1</p>
+          <p>0</p>
+          <span>&icirc;</span>
+        </div>
+        <p class="bracket">]</p>
       </div>
-      <div id="tall-white"></div>
-      <div id="fat-white"></div>
+      <p>+</p>
+      <p class="current-y">1</p>
+      <div id="holder">
+        <p class="bracket">[</p>
+        <div class="matrix">
+          <p>0</p>
+          <p>1</p>
+          <span>&jcirc;</span>
+        </div>
+        <p class="bracket">]</p>
+      </div>
+      <p>=</p>
+      <div id="holder">
+        <p class="bracket">[</p>
+        <div class="matrix">
+          <p class="current-x">1</p>
+          <p class="current-y">1</p>
+          <span>V</span>
+        </div>
+        <p class="bracket">]</p>
+      </div>
     </div>
+    <p>Unit vectors: &icirc; and &jcirc;</p>
 
     <canvas id="my-canvas" style="border:0.5rem solid #d3d3d3; margin: 1rem auto; display: block"></canvas>
 
