@@ -1,5 +1,5 @@
 import './style.css'
-import './warp.js'
+import './warp'
 
 const canvas = document.querySelector('#my-canvas');
 const width = 500;
